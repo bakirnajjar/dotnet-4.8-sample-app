@@ -1,6 +1,7 @@
 using DescopeSampleApp.Core;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
 builder.Services.AddHttpClient(TokenValidator.JwksClientName);
 builder.Services.AddTransient(sp =>
 {
@@ -15,6 +16,7 @@ builder.Services.AddTransient(sp =>
 builder.Services.AddSingleton(TimeProvider.System);
 var app = builder.Build();
 
+app.MapControllers();
 app.Run();
 
 // Make the minimal-hosting entry point accessible to WebApplicationFactory integration tests.

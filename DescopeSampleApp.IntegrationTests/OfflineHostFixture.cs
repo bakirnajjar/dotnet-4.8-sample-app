@@ -16,10 +16,12 @@ public sealed class OfflineHostFixture : WebApplicationFactory<Program>
     public const string EmptyJwks = """{"keys":[]}""";
 
     private readonly string _jwksJson;
+    private readonly bool _failFetch;
 
-    public OfflineHostFixture(string jwksJson = EmptyJwks)
+    public OfflineHostFixture(string jwksJson = EmptyJwks, bool failFetch = false)
     {
         _jwksJson = jwksJson;
+        _failFetch = failFetch;
     }
 
     public RejectingJwksHandler Outbound => new(_jwksJson);
@@ -34,11 +36,11 @@ public sealed class OfflineHostFixture : WebApplicationFactory<Program>
         builder.ConfigureTestServices(services =>
         {
             // Supply both common injection paths until the token validator chooses its HTTP abstraction.
-            services.AddSingleton(new HttpClient(new RejectingJwksHandler(_jwksJson)));
+            services.AddSingleton(new HttpClient(new RejectingJwksHandler(_jwksJson, _failFetch)));
             services.AddHttpClient(string.Empty)
-                .ConfigurePrimaryHttpMessageHandler(() => new RejectingJwksHandler(_jwksJson));
+                .ConfigurePrimaryHttpMessageHandler(() => new RejectingJwksHandler(_jwksJson, _failFetch));
             services.AddHttpClient(JwksClientName)
-                .ConfigurePrimaryHttpMessageHandler(() => new RejectingJwksHandler(_jwksJson));
+                .ConfigurePrimaryHttpMessageHandler(() => new RejectingJwksHandler(_jwksJson, _failFetch));
         });
     }
 }
@@ -47,10 +49,12 @@ public sealed class OfflineHostFixture : WebApplicationFactory<Program>
 public sealed class RejectingJwksHandler : HttpMessageHandler
 {
     private readonly string _jwksJson;
+    private readonly bool _failFetch;
 
-    public RejectingJwksHandler(string jwksJson = OfflineHostFixture.EmptyJwks)
+    public RejectingJwksHandler(string jwksJson = OfflineHostFixture.EmptyJwks, bool failFetch = false)
     {
         _jwksJson = jwksJson;
+        _failFetch = failFetch;
     }
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -59,6 +63,8 @@ public sealed class RejectingJwksHandler : HttpMessageHandler
         {
             throw new InvalidOperationException($"Unexpected outbound HTTP request: {request.Method} {request.RequestUri}");
         }
+        if (_failFetch)
+            throw new HttpRequestException("Simulated offline JWKS transport failure.");
 
         return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
         {

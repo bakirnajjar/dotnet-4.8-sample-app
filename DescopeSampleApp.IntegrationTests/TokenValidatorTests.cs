@@ -90,7 +90,7 @@ public sealed class TokenValidatorTests
     private static TokenValidator Validator(string jwks) =>
         new(new HttpClient(new RejectingJwksHandler(jwks)), new Uri(OfflineHostFixture.JwksUrl), Clock);
 
-    private static string Jwks() => """{"keys":[""" + Key() + "]}";
+    internal static string Jwks() => """{"keys":[""" + Key() + "]}";
 
     private static string Key()
     {
@@ -100,7 +100,7 @@ public sealed class TokenValidatorTests
             n = Base64(publicKey.Modulus!), e = Base64(publicKey.Exponent!) });
     }
 
-    private static string Sign(string payload, string kid = "test")
+    internal static string Sign(string payload, string kid = "test")
     {
         using var rsa = PrivateKey();
         var header = Base64(JsonSerializer.SerializeToUtf8Bytes(new { alg = "RS256", kid }));
