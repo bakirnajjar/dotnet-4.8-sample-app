@@ -10,6 +10,9 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Net.Http" />
     <!-- Reference the independently built, unchanged legacy binary; do not evaluate its WebApplication project through the SDK test runner. -->
     <Reference Include="DescopeSampleApp">
       <HintPath>..\DescopeSampleApp\bin\DescopeSampleApp.dll</HintPath>
@@ -21,6 +24,18 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\DescopeSampleApp\bin\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\DescopeSampleApp\bin\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\DescopeSampleApp\bin\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\DescopeSampleApp\bin\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
