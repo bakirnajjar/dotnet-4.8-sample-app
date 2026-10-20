@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DescopeSampleApp.Characteri
 		{2C935197-B4CA-492D-B5C9-3DC5486DCB03} = {2C935197-B4CA-492D-B5C9-3DC5486DCB03}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DescopeSampleApp.Core", "DescopeSampleApp.Core\DescopeSampleApp.Core.csproj", "{0273C5BA-FAE1-4225-BA6E-D83C966E04CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{374D0A9F-F597-42C7-91DE-5D19DC509EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{374D0A9F-F597-42C7-91DE-5D19DC509EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{374D0A9F-F597-42C7-91DE-5D19DC509EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0273C5BA-FAE1-4225-BA6E-D83C966E04CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0273C5BA-FAE1-4225-BA6E-D83C966E04CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0273C5BA-FAE1-4225-BA6E-D83C966E04CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0273C5BA-FAE1-4225-BA6E-D83C966E04CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
