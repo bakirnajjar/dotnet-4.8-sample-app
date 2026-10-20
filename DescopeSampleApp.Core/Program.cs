@@ -2,6 +2,7 @@ using DescopeSampleApp.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 builder.Services.AddMvcCore().AddApiExplorer();
 builder.Services.AddSingleton<HelpApiCatalog>();
 builder.Services.AddHttpClient(TokenValidator.JwksClientName);
@@ -20,6 +21,7 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.MapControllers();
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "HelpPage_Default",
     pattern: "Help/{action=Index}/{apiId?}",
