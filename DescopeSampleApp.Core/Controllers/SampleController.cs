@@ -7,6 +7,7 @@ namespace DescopeSampleApp.Core.Controllers;
 // No [ApiController]: the legacy Web API action did not use automatic model validation.
 [Route("api/sample")]
 [Route("api/sample/{id?}")]
+[ApiExplorerSettings(IgnoreApi = false)]
 public sealed class SampleController(TokenValidator validator) : ControllerBase
 {
     [HttpGet]

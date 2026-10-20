@@ -1,0 +1,19 @@
+@model DescopeSampleApp.Core.HelpResource
+@{
+    Layout = null;
+    ViewBag.Title = Model.Name;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8" /><title>@ViewBag.Title</title><link rel="stylesheet" href="/Areas/HelpPage/HelpPage.css" /></head>
+<body class="help-page">
+<a href="@Url.Action("Index", "Help")">Help Page Home</a>
+<h1>@Model.Name</h1>
+<table class="help-page-table"><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
+@foreach (var property in Model.Properties)
+{
+    <tr><td>@property.Name</td><td>@property.Type</td></tr>
+}
+</tbody></table>
+</body>
+</html>
