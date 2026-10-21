@@ -1,0 +1,30 @@
+@model IReadOnlyList<DescopeSampleApp.Core.HelpApi>
+@{
+    Layout = null;
+    ViewBag.Title = "ASP.NET Web API Help Page";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8" /><title>@ViewBag.Title</title><link rel="stylesheet" href="/Areas/HelpPage/HelpPage.css" /></head>
+<body>
+<header class="help-page"><h1>@ViewBag.Title</h1></header>
+<div id="body" class="help-page">
+    <h2>Introduction</h2>
+    <p>Provide a general description of your APIs here.</p>
+    @foreach (var group in Model.GroupBy(api => api.Controller))
+    {
+        <h2>@group.Key</h2>
+        <table class="help-page-table">
+            <thead><tr><th>API</th><th>Description</th></tr></thead>
+            <tbody>
+            @foreach (var api in group)
+            {
+                <tr><td class="api-name"><a href="@Url.Action("Api", "Help", new { apiId = api.Id })">@api.Method @api.Path</a></td>
+                    <td class="api-documentation"><p>No documentation available.</p></td></tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+</body>
+</html>

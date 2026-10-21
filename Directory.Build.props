@@ -1,0 +1,8 @@
+<Project>
+  <!-- The .NET SDK's MSBuild does not include classic ASP.NET WebApplication targets.
+       Use the installed BuildTools targets only when it evaluates the unchanged legacy project. -->
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core' and '$(MSBuildProjectName)' == 'DescopeSampleApp' and Exists('C:\BuildTools\MSBuild\Microsoft\VisualStudio\v18.0\WebApplications\Microsoft.WebApplication.targets')">
+    <VSToolsPath>C:\BuildTools\MSBuild\Microsoft\VisualStudio\v18.0</VSToolsPath>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+</Project>

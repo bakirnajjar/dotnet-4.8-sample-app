@@ -1,0 +1,36 @@
+@model DescopeSampleApp.Core.HelpApi
+@inject DescopeSampleApp.Core.HelpApiCatalog Catalog
+@{
+    Layout = null;
+    ViewBag.Title = Model.Method + " " + Model.Path;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8" /><title>@ViewBag.Title</title><link rel="stylesheet" href="/Areas/HelpPage/HelpPage.css" /></head>
+<body class="help-page">
+<a href="@Url.Action("Index", "Help")">Help Page Home</a>
+<h1>@ViewBag.Title</h1>
+<h2>Request Information</h2>
+<h3>URI Parameters</h3>
+@if (Model.Parameters.Count == 0) { <p>None.</p> }
+else
+{
+    <table class="help-page-table"><thead><tr><th>Name</th><th>Type</th><th>Source</th></tr></thead><tbody>
+    @foreach (var parameter in Model.Parameters)
+    {
+        <tr><td>@parameter.Name</td><td>@parameter.Type</td><td>@parameter.Source</td></tr>
+    }
+    </tbody></table>
+}
+<h2>Response Information</h2>
+<h3>Resource Description</h3>
+@foreach (var response in Model.Responses)
+{
+    <p>@response.StatusCode: @response.Type</p>
+    @if (Catalog.FindResource(response.Type) != null)
+    {
+        <a href="@Url.Action("ResourceModel", "Help", new { modelName = response.Type })">@response.Type</a>
+    }
+}
+</body>
+</html>
